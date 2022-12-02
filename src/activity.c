@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 14:55:42 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/02 15:21:12 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/02 15:42:27 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 bool	isalive(t_philo_info *phinfo)
 {
 	bool	living;
+
 	pthread_mutex_lock(&phinfo->ego);
 	living = phinfo->alive;
 	pthread_mutex_unlock(&phinfo->ego);
@@ -37,6 +38,8 @@ static int	pheat(t_philo_info *phinfo)
 	pthread_mutex_lock(&phinfo->ego);
 	phinfo->time_last_meal = time;
 	pthread_mutex_unlock(&phinfo->ego);
+	if (isalive(phinfo) == false)
+		return (1);
 	print_wrap(phinfo->gi, "is eating", phinfo);
 	if (my_sleep(phinfo->gi->time_to_eat, phinfo))
 	{

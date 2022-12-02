@@ -6,13 +6,13 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 14:14:16 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/01 21:30:30 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/02 15:43:08 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	print_wrap(t_general_info *gi, char *s,t_philo_info *phinfo)
+void	print_wrap(t_general_info *gi, char *s, t_philo_info *phinfo)
 {
 	pthread_mutex_lock(&gi->printing);
 	printf("%ld\t%d %s\n", get_time(*gi), phinfo->id + 1, s);

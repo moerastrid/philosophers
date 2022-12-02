@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 18:48:56 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/02 15:13:26 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/02 15:42:46 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	only_one(t_general_info gi)
 	{
 		printf("%ld\t1 has taken a fork\n", get_time(gi));
 		usleep(gi.time_to_die * 1000);
-		printf("%ld\1 died\n", get_time(gi));
+		printf("%ld\t1 died\n", get_time(gi));
 		return (1);
 	}
 	return (0);
