@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 18:48:56 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/13 17:22:10 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 17:27:18 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	monitor(t_general_info *gi, t_philo_info *phinfo)
 {
 	int	i;
 	int	full;
-	int deadphilo_id;
+	int	deadphilo_id;
 
 	deadphilo_id = 0;
 	i = 0;

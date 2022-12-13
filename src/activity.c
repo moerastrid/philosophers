@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 14:55:42 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/13 17:18:12 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 17:59:09 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	isalive(t_philo_info *phinfo)
 {
 	bool	living;
 
-	usleep(150);
+	usleep(20);
 	pthread_mutex_lock(&phinfo->ego);
 	living = phinfo->alive;
 	pthread_mutex_unlock(&phinfo->ego);
@@ -59,7 +59,8 @@ static int	pheat(t_philo_info *phinfo)
 
 void	get_ready(t_philo_info *phinfo)
 {
-	bool ready;
+	bool		ready;
+	long int	current_time_ms;
 
 	ready = false;
 	while (1)
@@ -71,6 +72,16 @@ void	get_ready(t_philo_info *phinfo)
 		if (ready == true)
 			break ;
 	}
+	current_time_ms = get_time(*phinfo->gi);
+	if (phinfo->id % 2 == 1)
+	{
+		while (current_time_ms < (phinfo->gi->time_to_eat * 0.8))
+		{
+			current_time_ms = get_time(*(phinfo->gi));
+			if (isalive(phinfo) != true)
+				break ;
+		}
+	}
 }
 
 void	*activity(void *arg)
@@ -79,10 +90,12 @@ void	*activity(void *arg)
 
 	phinfo = (t_philo_info *)arg;
 	get_ready(phinfo);
-	if (phinfo->id % 2 == 1)
-		my_sleep(phinfo->gi->time_to_eat * 0.8, phinfo);
+	//if (phinfo->id % 2 == 1)
+	//	my_sleep(phinfo->gi->time_to_eat * 0.8, phinfo);
 	if (isalive(phinfo))
 		print_wrap(phinfo->gi, "is thinking", phinfo);
+	else
+		return (NULL);
 	while (1)
 	{
 		if (take_phorks(phinfo) == false)

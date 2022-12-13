@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 15:37:20 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/02 15:42:54 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 17:31:10 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ long int	get_time(t_general_info gi)
 
 int	my_sleep(long int duration_ms, t_philo_info *phinfo)
 {
-	long int		starttime_ms;
-	long int		current_time_ms;
+	long int	starttime_ms;
+	long int	current_time_ms;
 
 	starttime_ms = get_time(*phinfo->gi);
 	current_time_ms = starttime_ms;
