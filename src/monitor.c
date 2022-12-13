@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 18:48:56 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/02 15:42:46 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/02 16:02:59 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ static bool	he_dead(t_general_info *gi, t_philo_info *phinfo)
 
 static bool	he_full(t_general_info *gi, t_philo_info *phinfo)
 {
+	int	bites;
+
 	pthread_mutex_lock(&phinfo->ego);
-	if (phinfo->bites >= gi->meals)
-	{
-		pthread_mutex_unlock(&phinfo->ego);
-		return (1);
-	}
+	bites = phinfo->bites;
 	pthread_mutex_unlock(&phinfo->ego);
+	if (bites >= gi->meals)
+		return (1);
 	return (0);
 }
 
@@ -91,7 +91,6 @@ void	monitor(t_general_info *gi, t_philo_info *phinfo)
 			kill_them_all(gi, phinfo);
 			break ;
 		}
-		usleep(150);
 		i++;
 	}
 }

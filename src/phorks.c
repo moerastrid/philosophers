@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 14:51:28 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/01 22:00:15 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/02 16:04:09 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	take_right_phork(t_philo_info *phinfo)
 	pthread_mutex_lock(&phinfo->gi->phorks[next_id(phinfo)]);
 	if (isalive(phinfo) == true)
 		print_wrap(phinfo->gi, "has taken a fork", phinfo);
-	else
-		pthread_mutex_unlock(&phinfo->gi->phorks[phinfo->id]);
+//	else
+//		pthread_mutex_unlock(&phinfo->gi->phorks[phinfo->id]);
 }
 
 static void	take_left_phork(t_philo_info *phinfo)
@@ -36,8 +36,8 @@ static void	take_left_phork(t_philo_info *phinfo)
 	pthread_mutex_lock(&phinfo->gi->phorks[phinfo->id]);
 	if (isalive(phinfo) == true)
 		print_wrap(phinfo->gi, "has taken a fork", phinfo);
-	else
-		pthread_mutex_unlock(&phinfo->gi->phorks[phinfo->id]);
+//	else
+//		pthread_mutex_unlock(&phinfo->gi->phorks[phinfo->id]);
 }
 
 void	take_phorks(t_philo_info *phinfo)

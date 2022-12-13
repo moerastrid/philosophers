@@ -6,12 +6,12 @@
 #    By: ageels <ageels@student.42.fr>                +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/07 16:12:00 by ageels        #+#    #+#                  #
-#    Updated: 2022/12/01 22:29:05 by ageels        ########   odam.nl          #
+#    Updated: 2022/12/02 15:59:20 by ageels        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
 SRC = src/main.c\
 	src/activity.c\
 	src/convert.c\
