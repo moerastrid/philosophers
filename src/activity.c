@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 14:55:42 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/02 15:42:27 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 16:25:38 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	get_ready(t_philo_info *phinfo)
 {
 	while (1)
 	{
-		usleep(150);
+		usleep(50);
 		pthread_mutex_lock(&phinfo->gi->printing);
 		if (phinfo->gi->ready)
 		{
@@ -74,12 +74,14 @@ void	*activity(void *arg)
 
 	phinfo = (t_philo_info *)arg;
 	get_ready(phinfo);
-	print_wrap(phinfo->gi, "is thinking", phinfo);
 	if (phinfo->id % 2 == 1)
-		usleep(150);
+		my_sleep(phinfo->gi->time_to_eat * 0.8, phinfo);
+	if (isalive(phinfo))
+		print_wrap(phinfo->gi, "is thinking", phinfo);
 	while (1)
 	{
-		take_phorks(phinfo);
+		if (take_phorks(phinfo) == false)
+			break ;
 		if (pheat(phinfo))
 			break ;
 		if (phleep(phinfo))
@@ -89,7 +91,7 @@ void	*activity(void *arg)
 		print_wrap(phinfo->gi, "is thinking", phinfo);
 		if (isalive(phinfo) == false)
 			break ;
-		usleep(150);
+		usleep(50);
 	}
 	return (NULL);
 }

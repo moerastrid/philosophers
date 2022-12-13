@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 14:51:22 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/02 15:19:07 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 15:40:36 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		monitor(t_general_info *gi, t_philo_info *phinfo);
 void		philosophy(t_general_info *gi);
 
 //phorks
-void		take_phorks(t_philo_info *phinfo);
+bool		take_phorks(t_philo_info *phinfo);
 void		put_down_phorks(t_philo_info *phinfo);
 
 //time

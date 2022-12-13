@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 18:48:56 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/02 16:02:59 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 16:22:54 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void	monitor(t_general_info *gi, t_philo_info *phinfo)
 	{
 		if (i >= gi->amount_philo)
 		{
+			usleep(50);
 			i = 0;
 			full = 0;
-			usleep(150);
 		}
 		if (gi->meals_set)
 			full += he_full(gi, &phinfo[i]);
