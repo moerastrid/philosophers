@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 14:55:48 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/13 17:17:39 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 19:11:57 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	philosophy(t_general_info *gi)
 	t_philo_info	*phinfo;
 
 	phinfo = ft_calloc(gi->amount_philo, sizeof(t_philo_info));
+	if (phinfo == NULL)
+		return ;
 	if (init_gmutex(gi))
 		return ;
 	init_philos(gi, phinfo);

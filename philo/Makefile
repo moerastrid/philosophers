@@ -6,12 +6,12 @@
 #    By: ageels <ageels@student.42.fr>                +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/07 16:12:00 by ageels        #+#    #+#                  #
-#    Updated: 2022/12/13 17:38:50 by ageels        ########   odam.nl          #
+#    Updated: 2022/12/13 19:11:05 by ageels        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
 SRC = src/main.c\
 	src/activity.c\
 	src/convert.c\
@@ -28,14 +28,12 @@ OBJ = $(patsubst src/%.c,obj/%.o,$(SRC))
 
 all : $(NAME)
 
-obj_folder : 
-	@mkdir -pv obj
-
-$(NAME) : obj_folder $(OBJ)
+$(NAME) : $(OBJ)
 	@clang $(CFLAGS) $(LFLAGS) $(OBJ) -o $@
 	@echo "$(GREEN)philosophy is alive$(RESET)"
 
 obj/%.o : src/%.c
+	@mkdir -pv obj
 	@clang $(CFLAGS) -o $@ -c $^
 
 clean:
