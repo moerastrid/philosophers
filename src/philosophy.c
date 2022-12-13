@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 14:55:48 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/02 15:07:35 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 17:17:39 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	clean_philos(t_general_info *gi, t_philo_info	*phinfo)
 		pthread_join(phinfo[i].thread, NULL);
 		i++;
 	}
+	pthread_mutex_destroy(&gi->printing);
 	i = 0;
 	while (i < gi->amount_philo)
 	{
@@ -75,7 +76,6 @@ void	clean_philos(t_general_info *gi, t_philo_info	*phinfo)
 		pthread_mutex_destroy(&gi->phorks[i]);
 		i++;
 	}
-	pthread_mutex_destroy(&gi->printing);
 	free(gi->phorks);
 	free(phinfo);
 }

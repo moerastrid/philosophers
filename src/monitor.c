@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 18:48:56 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/13 16:22:54 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 17:22:10 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	kill_them_all(t_general_info *gi, t_philo_info *phinfo)
 	}
 }
 
-static bool	he_dead(t_general_info *gi, t_philo_info *phinfo)
+static int	he_dead(t_general_info *gi, t_philo_info *phinfo)
 {
 	long int	current_time;
 	long int	time_last_meal;
@@ -49,12 +49,9 @@ static bool	he_dead(t_general_info *gi, t_philo_info *phinfo)
 	pthread_mutex_unlock(&phinfo->ego);
 	if (current_time - time_last_meal > gi->time_to_die)
 	{
-		pthread_mutex_lock(&gi->printing);
-		printf("%ld\t%d %s\n", get_time(*gi), phinfo->id + 1, "died");
-		pthread_mutex_unlock(&gi->printing);
-		return (true);
+		return (phinfo->id + 1);
 	}
-	return (false);
+	return (0);
 }
 
 static bool	he_full(t_general_info *gi, t_philo_info *phinfo)
@@ -73,22 +70,31 @@ void	monitor(t_general_info *gi, t_philo_info *phinfo)
 {
 	int	i;
 	int	full;
+	int deadphilo_id;
 
+	deadphilo_id = 0;
 	i = 0;
 	full = 0;
 	while (1)
 	{
 		if (i >= gi->amount_philo)
 		{
-			usleep(50);
+			usleep(20);
 			i = 0;
 			full = 0;
 		}
 		if (gi->meals_set)
 			full += he_full(gi, &phinfo[i]);
-		if ((full == gi->amount_philo) || he_dead(gi, &phinfo[i]))
+		deadphilo_id = he_dead(gi, &phinfo[i]);
+		if ((full == gi->amount_philo) || deadphilo_id)
 		{
 			kill_them_all(gi, phinfo);
+			if (deadphilo_id != 0)
+			{
+				pthread_mutex_lock(&gi->printing);
+				printf("%ld\t%d %s\n", get_time(*gi), deadphilo_id, "died");
+				pthread_mutex_unlock(&gi->printing);
+			}
 			break ;
 		}
 		i++;
