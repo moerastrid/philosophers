@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 14:55:42 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/13 17:59:09 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 18:15:19 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	isalive(t_philo_info *phinfo)
 {
 	bool	living;
 
-	usleep(20);
+	usleep(150);
 	pthread_mutex_lock(&phinfo->ego);
 	living = phinfo->alive;
 	pthread_mutex_unlock(&phinfo->ego);
@@ -90,8 +90,6 @@ void	*activity(void *arg)
 
 	phinfo = (t_philo_info *)arg;
 	get_ready(phinfo);
-	//if (phinfo->id % 2 == 1)
-	//	my_sleep(phinfo->gi->time_to_eat * 0.8, phinfo);
 	if (isalive(phinfo))
 		print_wrap(phinfo->gi, "is thinking", phinfo);
 	else

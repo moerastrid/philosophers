@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 18:48:56 by ageels        #+#    #+#                 */
-/*   Updated: 2022/12/13 17:27:18 by ageels        ########   odam.nl         */
+/*   Updated: 2022/12/13 18:18:43 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	only_one(t_general_info gi)
 	return (0);
 }
 
-static void	kill_them_all(t_general_info *gi, t_philo_info *phinfo)
+static void	kill_them_all(t_general_info *gi, t_philo_info *phinfo, int id)
 {
 	int	i;
 
@@ -35,6 +35,13 @@ static void	kill_them_all(t_general_info *gi, t_philo_info *phinfo)
 		phinfo[i].alive = false;
 		pthread_mutex_unlock(&phinfo[i].ego);
 		i++;
+	}
+	if (id != 0)
+	{
+		usleep(150);
+		pthread_mutex_lock(&gi->printing);
+		printf("%ld\t%d %s\n", get_time(*gi), id, "died");
+		pthread_mutex_unlock(&gi->printing);
 	}
 }
 
@@ -88,13 +95,7 @@ void	monitor(t_general_info *gi, t_philo_info *phinfo)
 		deadphilo_id = he_dead(gi, &phinfo[i]);
 		if ((full == gi->amount_philo) || deadphilo_id)
 		{
-			kill_them_all(gi, phinfo);
-			if (deadphilo_id != 0)
-			{
-				pthread_mutex_lock(&gi->printing);
-				printf("%ld\t%d %s\n", get_time(*gi), deadphilo_id, "died");
-				pthread_mutex_unlock(&gi->printing);
-			}
+			kill_them_all(gi, phinfo, deadphilo_id);
 			break ;
 		}
 		i++;
